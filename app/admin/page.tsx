@@ -57,7 +57,7 @@ export default function AdminProductsPage() {
         }),
       });
       if (!res.ok) throw new Error("Не удалось добавить товар");
-      // Обновляем список товаров после добавления
+    
       await fetchProducts();
       setForm({ title: "", description: "", price: "", sku: "" });
     } catch (err: any) {

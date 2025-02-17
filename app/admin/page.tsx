@@ -1,49 +1,31 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
-interface Product {
-  id: number;
-  title: string;
-  description?: string;
-  price: number;
-  discountedPrice?: number;
-  sku: string;
-  photoUrl?: string;
-}
+import { useState } from "react";
+import { Product } from "../type/interface";
+import { FormData } from "../type/interface";
 
 export default function AdminProductsPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string>("");
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<FormData>({
     title: "",
     description: "",
     price: "",
-    sku: "",
+    article: "",
   });
-
-  const fetchProducts = async () => {
-    setLoading(true);
-    try {
-      const res = await fetch("http://localhost:3000/products");
-      if (!res.ok) throw new Error("Не удалось загрузить товары");
-      const data = await res.json();
-      setProducts(data.data);
-    } catch (err: any) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchProducts();
-  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    const price = parseFloat(form.price);
+    if (isNaN(price)) {
+      setError("Цена должна быть числом");
+      return;
+    }
+
     try {
+      setLoading(true);
       const res = await fetch("http://localhost:3000/products", {
         method: "POST",
         headers: {
@@ -52,62 +34,62 @@ export default function AdminProductsPage() {
         body: JSON.stringify({
           title: form.title,
           description: form.description,
-          price: parseFloat(form.price),
-          sku: form.sku,
+          price: price,
+          sku: form.article,
         }),
       });
+
       if (!res.ok) throw new Error("Не удалось добавить товар");
-    
-      await fetchProducts();
-      setForm({ title: "", description: "", price: "", sku: "" });
+
+      setForm({ title: "", description: "", price: "", article: "" });
     } catch (err: any) {
       setError(err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
-  if (loading) return <div>Загрузка...</div>;
-  if (error) return <div>Ошибка: {error}</div>;
-
   return (
     <div>
-      <h1>Управление товарами</h1>
-      <form onSubmit={handleSubmit}>
+      <h1>New Product</h1>
+      {error && <div className="text-red-500">{error}</div>}
+
+      {loading && <div>Загрузка...</div>}
+
+      <form onSubmit={handleSubmit} className="flex flex-col gap-6 py-4 mt-4 ">
         <input
           type="text"
           value={form.title}
           onChange={(e) => setForm({ ...form, title: e.target.value })}
-          placeholder="Название"
+          placeholder="title"
           required
         />
         <textarea
           value={form.description}
           onChange={(e) => setForm({ ...form, description: e.target.value })}
-          placeholder="Описание"
+          placeholder="description"
         />
         <input
           type="number"
           value={form.price}
           onChange={(e) => setForm({ ...form, price: e.target.value })}
-          placeholder="Цена"
+          placeholder="price"
           required
         />
         <input
           type="text"
-          value={form.sku}
-          onChange={(e) => setForm({ ...form, sku: e.target.value })}
-          placeholder="Артикул"
+          value={form.article}
+          onChange={(e) => setForm({ ...form, article: e.target.value })}
+          placeholder="article"
           required
         />
-        <button type="submit">Добавить товар</button>
+        <button
+          className="rounded-full border border-solid border-slate-100 flex items-center justify-center text-white gap-2 hover:bg-[#474040] h-10 w-40"
+          type="submit"
+        >
+          ADD PRODUCTS
+        </button>
       </form>
-      <h2>Список товаров</h2>
-      <ul>
-        {products.map((product) => (
-          <li key={product.id}>
-            {product.title} - ${product.price}
-          </li>
-        ))}
-      </ul>
     </div>
   );
 }

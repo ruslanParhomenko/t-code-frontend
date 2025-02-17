@@ -1,21 +1,13 @@
 import { notFound } from "next/navigation";
-
-interface Product {
-  id: number;
-  title: string;
-  description?: string;
-  price: number;
-  discountedPrice?: number;
-  sku: string;
-  photoUrl?: string;
-}
+import { Product } from "@/app/type/interface";
 
 interface PageProps {
   params: { id: string };
 }
 
 export default async function ProductPage({ params }: PageProps) {
-  const res = await fetch(`http://localhost:3000/products/${params.id}`);
+  const API_URL = process.env.API_URL;
+  const res = await fetch(`${API_URL}/products/${params.id}`);
   if (!res.ok) {
     notFound();
   }

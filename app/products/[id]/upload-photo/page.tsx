@@ -8,6 +8,8 @@ export default function UploadPhotoPage() {
   const [file, setFile] = useState<File | null>(null);
   const [message, setMessage] = useState<string>("");
 
+  const API_URL = process.env.API_URL;
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       setFile(e.target.files[0]);
@@ -22,7 +24,7 @@ export default function UploadPhotoPage() {
     formData.append("file", file);
 
     try {
-      const res = await fetch(`http://localhost:3000/products/${id}/photo`, {
+      const res = await fetch(`${API_URL}/products/${id}/photo`, {
         method: "POST",
         body: formData,
       });
@@ -35,10 +37,10 @@ export default function UploadPhotoPage() {
 
   return (
     <div>
-      <h1>Загрузка фото для товара ID: {id}</h1>
+      <h1>UPLOAD product ID: {id}</h1>
       <form onSubmit={handleUpload}>
         <input type="file" accept="image/*" onChange={handleFileChange} />
-        <button type="submit">Загрузить фото</button>
+        <button type="submit">UPLOAD</button>
       </form>
       {message && <p>{message}</p>}
     </div>

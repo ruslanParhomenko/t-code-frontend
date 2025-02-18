@@ -29,7 +29,7 @@ export default function RenderProducts() {
       {productsdata?.data.map((product) => (
         <div
           key={product.id}
-          className="flex justify-start items-center border border-solid border-separate p-2 mb-2"
+          className="flex justify-start items-center gap-2 border border-solid border-separate p-2 mb-2"
         >
           <ul className="w-1/3 flex flex-col">
             <LinkPage
@@ -54,6 +54,12 @@ export default function RenderProducts() {
               height={32}
             />
           )}
+          <ul className="w-1/3 flex flex-col">
+            <LinkPage
+              page={`/products/${product.id}/delete-product`}
+              text="delete product"
+            />
+          </ul>
         </div>
       ))}
     </div>

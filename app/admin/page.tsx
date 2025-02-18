@@ -50,13 +50,13 @@ export default function AdminProductsPage() {
   };
 
   return (
-    <div>
+    <div className="max-w-[50%] mx-auto">
       <h1>New Product</h1>
       {error && <div className="text-red-500">{error}</div>}
 
       {loading && <div>Загрузка...</div>}
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-6 py-4 mt-4 ">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-6  py-10 ">
         <input
           type="text"
           value={form.title}

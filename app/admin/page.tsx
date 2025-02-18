@@ -63,11 +63,13 @@ export default function AdminProductsPage() {
           onChange={(e) => setForm({ ...form, title: e.target.value })}
           placeholder="title"
           required
+          className="text-black p-2 border border-gray-300 rounded"
         />
         <textarea
           value={form.description}
           onChange={(e) => setForm({ ...form, description: e.target.value })}
           placeholder="description"
+          className="text-black p-2 border border-gray-300 rounded"
         />
         <input
           type="number"
@@ -75,6 +77,7 @@ export default function AdminProductsPage() {
           onChange={(e) => setForm({ ...form, price: e.target.value })}
           placeholder="price"
           required
+          className="text-black p-2 border border-gray-300 rounded"
         />
         <input
           type="text"
@@ -82,6 +85,7 @@ export default function AdminProductsPage() {
           onChange={(e) => setForm({ ...form, article: e.target.value })}
           placeholder="article"
           required
+          className="text-black p-2 border border-gray-300 rounded"
         />
         <button
           className="rounded-full border border-solid border-slate-100 flex items-center justify-center text-white gap-2 hover:bg-[#474040] h-10 w-40"

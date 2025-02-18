@@ -6,6 +6,7 @@ import Image from "next/image";
 
 export default function RenderProducts() {
   const { productsdata, loading, error } = useData();
+  const API_URL = process.env.API_URL;
 
   if (loading) {
     return (
@@ -46,7 +47,12 @@ export default function RenderProducts() {
             <li>Цена: ${product.price}</li>
           </ul>
           {product.photoUrl && (
-            <Image src={product.photoUrl} alt="foto" width={32} height={32} />
+            <Image
+              src={`${API_URL}${product.photoUrl}`}
+              alt="foto"
+              width={32}
+              height={32}
+            />
           )}
         </div>
       ))}

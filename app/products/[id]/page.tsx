@@ -6,8 +6,9 @@ interface PageProps {
 }
 
 export default async function ProductPage({ params }: PageProps) {
+  const { id } = await params;
   const API_URL = process.env.API_URL;
-  const res = await fetch(`${API_URL}/products/${params.id}`);
+  const res = await fetch(`${API_URL}/products/${id}`);
   if (!res.ok) {
     notFound();
   }

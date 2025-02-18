@@ -14,17 +14,17 @@ export default async function ProductPage({ params }: PageProps) {
   const product: Product = await res.json();
 
   return (
-    <div>
+    <div className="flex flex-col gap-3 justify-center items-center py-20">
       <h1>{product.title}</h1>
       {product.photoUrl && (
         <img src={product.photoUrl} alt={product.title} width={200} />
       )}
       <p>{product.description}</p>
-      <p>Цена: ${product.price}</p>
+      <p>price: ${product.price}</p>
       {product.discountedPrice && (
-        <p>Цена со скидкой: ${product.discountedPrice}</p>
+        <p>discount price: ${product.discountedPrice}</p>
       )}
-      <p>Артикул: {product.sku}</p>
+      <p>SKU: {product.sku}</p>
     </div>
   );
 }

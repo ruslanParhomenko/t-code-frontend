@@ -1,7 +1,7 @@
 "use client";
 
-import RenderProducts from "../context/render-products";
-import ButtonPage from "../component-iu/button-page";
+import RenderProducts from "../component/render-products";
+import ButtonPage from "../component/button-page";
 
 export default function ProductsPage() {
   console.log("ProductsPage");

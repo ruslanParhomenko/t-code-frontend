@@ -1,6 +1,6 @@
 "use client";
 
-import { useData } from "../context/data-products";
+import { useData } from "../hooks/data-products";
 
 export default function ButtonPage() {
   const { productsdata, page, setPage } = useData();

@@ -1,11 +1,11 @@
 "use client";
 
-import LinkPage from "../component-iu/button-link";
-import { useData } from "./data-products";
+import LinkPage from "./button-nav";
+import { useData } from "../hooks/data-products";
 import Image from "next/image";
 
 export default function RenderProducts() {
-  const { productsdata, loading, error } = useData();
+  const { productsData, loading, error } = useData();
   const API_URL = process.env.API_URL;
 
   if (loading) {
@@ -26,7 +26,7 @@ export default function RenderProducts() {
 
   return (
     <div className="w-full pt-10">
-      {productsdata?.data.map((product) => (
+      {productsData?.data.map((product) => (
         <div
           key={product.id}
           className="flex justify-start items-center gap-2 border border-solid border-separate p-2 mb-2"
@@ -59,6 +59,7 @@ export default function RenderProducts() {
               page={`/products/${product.id}/delete-product`}
               text="delete product"
             />
+            <LinkPage page={`/products/${product.id}`} text="open product" />
           </ul>
         </div>
       ))}

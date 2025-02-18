@@ -1,7 +1,7 @@
 "use client";
 
-import { DataProvider } from "./context/data-products";
-import Header from "./component-iu/header";
+import { DataProvider } from "./hooks/data-products";
+import Header from "./component/header";
 
 export default function ClientLayout({
   children,

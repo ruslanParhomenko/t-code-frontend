@@ -1,17 +1,11 @@
 "use client";
 
-import React, {
-  createContext,
-  useState,
-  useEffect,
-  useContext,
-  ReactNode,
-} from "react";
+import React, { createContext, useState, useEffect, useContext } from "react";
 
 import { ProductsResponse } from "../type/interface";
 
 interface DataContextType {
-  productsdata: ProductsResponse | null;
+  productsData: ProductsResponse | null;
   loading: boolean;
   error: string | null;
   page: number;
@@ -34,7 +28,7 @@ export const DataProvider = ({
   children: React.ReactNode;
 }>) => {
   const [page, setPage] = useState(1);
-  const [productsdata, setProductsData] = useState<ProductsResponse | null>(
+  const [productsData, setProductsData] = useState<ProductsResponse | null>(
     null
   );
   const [loading, setLoading] = useState(true);
@@ -68,7 +62,7 @@ export const DataProvider = ({
 
   return (
     <DataContext.Provider
-      value={{ productsdata, loading, error, page, setPage }}
+      value={{ productsData, loading, error, page, setPage }}
     >
       {children}
     </DataContext.Provider>
